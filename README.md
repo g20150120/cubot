@@ -13,6 +13,11 @@ To control each stepper, 4 consecutive digital output pin of Arduino MEGA2560 ar
 
 2. Open SOLUTION.txt, paste the solution to "String command" in "void solve()" in cubot_vo.ino, and upload to the chip. 
 
+## Reference
+1. an online code which implemented Thistlethwaite Method, solving Rubik's Cube very efficiently according to group theory.
+
+2. some online tutorial which explained the wiring of the chip, driver, and stepper.
+
 ## Futher Development
 1. A stable structure to hold the steppers and cube tight.
 
