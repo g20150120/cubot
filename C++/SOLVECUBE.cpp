@@ -48,10 +48,10 @@ start_x[6]={3,0,3,3,6,3},
 start_y[6]={3,3,0,6,3,9},
 
 //代表颜色信息和位置信息的关系 人工总结 
-edge_x[24]={2,3,1,3,0,3 ,1,3,6,5,7,5,8,5 ,7,5,4,4,4,4,4,4,4 ,4},
-edge_y[24]={4,4,5,7,4,10,3,1,4,4,5,7,4,10,3,1,5,6,3,2,9,8,11,0},
-apex_x[24]={2,3,3,0,3,3,0,3 ,3,2,3,3,6,5,5,6,5,5,8,5,5 ,8,5,5},
-apex_y[24]={5,5,6,5,8,9,3,11,0,3,2,3,5,6,5,3,3,2,3,0,11,5,9,8};
+edge_x[24]={2,3,1,3,0,3 ,1,3, 6,5,7,5,8,5, 7,5,4,4,4,4,4, 4,4 ,4},
+edge_y[24]={4,4,5,7,4,10,3,1, 4,4,5,7,4,10,3,1,5,6,3,2,9, 8,11,0},
+apex_x[24]={2,3,3,0,3,3, 0,3, 3,2,3,3,6,5, 5,6,5,5,8,5,5, 8,5 ,5},
+apex_y[24]={5,5,6,5,8,9, 3,11,0,3,2,3,5,6, 5,3,3,2,3,0,11,5,9 ,8};
 
 int func(char ch)
 {
@@ -113,24 +113,24 @@ int affectedCubies[][8] =
 
 vi applyMove ( int move, vi state ) 
 {
-    int turns = move % 3 + 1;
-    int face = move / 3;
-    while( turns-- )
+  int turns = move % 3 + 1;
+  int face = move / 3;
+  while( turns-- )
   {
-      vi oldState = state;
-      for( int i=0; i<8; i++ )
+    vi oldState = state;
+    for( int i=0; i<8; i++ )
     {
-          int isCorner = i > 3;
-          int target = affectedCubies[face][i] + isCorner*12;
-          int killer = affectedCubies[face][(i&3)==3 ? i-3 : i+1] + isCorner*12;;
-          int orientationDelta = (i<4) ? (face>1 && face<4) : (face<2) ? 0 : 2 - (i&1);
-          state[target] = oldState[killer];
-          state[target+20] = oldState[killer+20] + orientationDelta;
-          if( !turns )
+      int isCorner = i > 3;
+      int target = affectedCubies[face][i] + isCorner*12;
+      int killer = affectedCubies[face][(i&3)==3 ? i-3 : i+1] + isCorner*12;;
+      int orientationDelta = (i<4) ? (face>1 && face<4) : (face<2) ? 0 : 2 - (i&1);
+      state[target] = oldState[killer];
+      state[target+20] = oldState[killer+20] + orientationDelta;
+      if( !turns )
         state[target+20] %= 2 + isCorner;
-      }
     }
-    return state;
+  }
+  return state;
 }
 
 int inverse ( int move ) 
@@ -185,7 +185,7 @@ int main ()
   //输入从文件读取 魔方按cube[9][12]展开 每个面用RBGYWO的3*3矩阵表示 六个矩阵彼此空任意行 顺序任意 
   freopen("CUBE_STATE.txt","r",stdin);
 
-  //输出到文件 可直接作为command给arduino执行 人工测试最好再执行一下 3_standardize.exe
+  //输出到文件 可直接作为command给arduino执行
   freopen("SOLUTION.txt","w",stdout);
   
   memset(cube,0,sizeof(cube));
@@ -203,8 +203,8 @@ int main ()
      
     //将tmp中的信息转存到cube[9][12]展开图中 
     for(int i=0;i<3;i++)
-            for(int j=0;j<3;j++)
-                cube[start_x[q]+i][start_y[q]+j]=tmp[i][j];
+      for(int j=0;j<3;j++)
+        cube[start_x[q]+i][start_y[q]+j]=tmp[i][j];
   }
   
   //argv[1-20]存储魔方的状态 值为 UF DBR etc 
@@ -218,21 +218,21 @@ int main ()
     
   for(int i=0;i<24;i++)
   {
-        //把颜色信息转换成位置信息 
+    //把颜色信息转换成位置信息 
     argv[index]+=convert(cube[edge_x[i]][edge_y[i]]);        
     
     //前12组表示棱的位置 每组两个 UF UR etc 
     if(i%2==1)
-            index++;
+      index++;
   }
   for(int i=0;i<24;i++)
   {
-      //把颜色信息转换成位置信息 
+    //把颜色信息转换成位置信息 
     argv[index]+=convert(cube[apex_x[i]][apex_y[i]]);
         
     //后8组表示角的位置 每组三个 ULF DBR etc 
     if(i%3==2 && i!=23)
-        index++;
+      index++;
   }
 
   //--- Define the goal.
@@ -251,8 +251,8 @@ int main ()
       string cubie = argv[i+1];
       while( (currentState[i] = find( goal, goal+20, cubie ) - goal) == 20)
       {
-          cubie = cubie.substr( 1 ) + cubie[0];
-          currentState[i+20]++;
+        cubie = cubie.substr( 1 ) + cubie[0];
+        currentState[i+20]++;
       }
   }
   

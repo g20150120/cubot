@@ -7,10 +7,10 @@ using namespace std;
 All the parameters below are well-adjusted. Please don't change anything except time.
 
 */
-const int STEPS = 205;          // 360/1.8
+const int STEPS = 205;              // 360/1.8
 const int stepperSpeed = 240;       // rpm  15.8V 
 const int timeBetweenMoves = 5;     // ms    between U2 R2 or U R etc.
-const int timeBetweenComs = 1000*8;  // ms    between commands
+const int timeBetweenComs = 1000*8; // ms    between commands
 const int steps_90 = 3*STEPS/4 ;     
 const int steps_180 = STEPS/2;
 const int steps_270 = STEPS/4;   
@@ -20,16 +20,13 @@ const int _angle[4]={0,steps_90,steps_180,steps_270};
 
 String command = "";
 
-// 
 // adjust them according to your wiring
 Stepper FF(STEPS,28,29,30,31);
 Stepper DD(STEPS,22,23,24,25);
 Stepper BB(STEPS,34,35,36,37);
-/**/
 Stepper LL(STEPS,38,39,40,41);
 Stepper UU(STEPS,44,45,46,47);
 Stepper RR(STEPS,50,51,52,53);
-
 
 void Getcom();
 void Solve();
@@ -39,7 +36,6 @@ void setup()
     FF.setSpeed(stepperSpeed);
     UU.setSpeed(stepperSpeed);
     RR.setSpeed(stepperSpeed);
-    /**/
     LL.setSpeed(stepperSpeed);
     DD.setSpeed(stepperSpeed);
     BB.setSpeed(stepperSpeed);
@@ -57,8 +53,7 @@ void loop()
 // I was going to implement a funtion to receive solutions from serial monitor but did not manage to do so.
 // I just simply paste the solution here and upload the code.
 void Getcom() 
-{
-    
+{    
     command = "U2F2L2D2B2U2F2L2F2R2F2U1L2R2F2U3B2U1L2U3R1U3D2F2R1D2U1F1U1B1R3L2U3";
     
     Solve();
@@ -72,7 +67,7 @@ void Solve()
         char ch=command[i];
         int n=command[i+1]-'0';
         
-      //FULRDB
+        //FULRDB
         switch(ch)
         {
             case 'F':FF.step(_angle[n]); for(int i=FF.motor_pin_1;i<FF.motor_pin_1+4;i++) digitalWrite(i,LOW); break;
