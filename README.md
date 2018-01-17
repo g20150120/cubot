@@ -22,3 +22,6 @@ To control each stepper, 4 consecutive digital output pin of Arduino MEGA2560 ar
 1. A stable structure to hold the steppers and cube tight.
 
 2. color recognition
+
+## More Information
+http://alexanderzhao.info/#resume -> PROJECT -> Cubot
