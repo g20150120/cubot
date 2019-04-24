@@ -24,4 +24,4 @@ To control each stepper, 4 consecutive digital output pin of Arduino MEGA2560 ar
 2. color recognition
 
 ## More Information
-http://alexanderzhao.info/#resume -> PROJECT -> Cubot
+http://www.jczhao.com/#resume -> PROJECT -> Cubot
